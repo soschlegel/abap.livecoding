@@ -1,0 +1,11 @@
+managed implementation in class zbp_lc_i_prodrating_999 unique;
+
+define behavior for ZLC_I_ProdRating_999 alias prod_rating
+persistent table zlc_prodrate_999
+lock master
+
+{
+  create;
+  update;
+  delete;
+}

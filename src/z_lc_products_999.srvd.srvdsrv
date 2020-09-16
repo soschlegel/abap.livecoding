@@ -1,0 +1,5 @@
+@EndUserText.label: 'Z_LC_PRODUCTS_999'
+@OData.schema.name: 'API_PRODUCT_SRV'
+define service Z_LC_PRODUCTS_999 {
+ expose ZZ_LC_A_PRODUCT; 
+ } 
