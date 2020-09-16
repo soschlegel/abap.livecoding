@@ -6,7 +6,9 @@
 "ZLC_PRODRATE_999"
 ],
 "ASSOCIATED":
-[],
+[
+"ZZ_CE_PRODUCT"
+],
 "BASE":
 [],
 "ANNO_REF":

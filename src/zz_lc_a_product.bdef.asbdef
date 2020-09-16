@@ -1,6 +1,6 @@
  implementation abstract;
  define behavior for ZZ_LC_A_PRODUCT
-  {
-  create;
- update;
+ {
+   create;
+   update;
  }

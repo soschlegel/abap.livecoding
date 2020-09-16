@@ -1,12 +1,27 @@
 @Metadata.layer: #CUSTOMER
 
-//@UI: {
-//  headerInfo: { typeName: 'Product Rating', typeNamePlural: 'Product Rating', title: { type: #STANDARD, value: 'email' } } }
+@UI: {
+  headerInfo: { typeName: 'Product Rating', typeNamePlural: 'Product Rating'  } }
 
 @Search.searchable: true
 annotate view ZLC_I_ProdRating_999 with
 {
-  //ZLC_I_ProdRating_999
+
+  @UI.facet: [ {
+      id: 'idCollection',
+      type: #COLLECTION,
+      label: 'Product Rating',
+      position: 10
+    },
+    {
+      id: 'idIdentification',
+      parentId: 'idCollection',
+      type: #IDENTIFICATION_REFERENCE,
+      label: 'General Information',
+      position: 10
+    } ]
+
+    //ZLC_I_ProdRating_999
   @UI.hidden: false
   rating_uuid;
 
@@ -17,14 +32,6 @@ annotate view ZLC_I_ProdRating_999 with
       type: #STANDARD,
       label: 'Käse'
     }],
-
-  //    facet: [{
-  //  //              qualifier: ,
-  //      label: 'Forename',
-  //      id: 'ProductRating',
-  //      purpose: #STANDARD,
-  //      position: 10
-  //    }],
     identification: [{
         position: 10,
         label: 'Forename'
@@ -40,16 +47,10 @@ annotate view ZLC_I_ProdRating_999 with
     type: #STANDARD,
     label: 'Surname'
   }],
-
-  //  facet: [{
-  //  //              qualifier: ,
-  //    label: 'Surname',
-  //    id: 'ProductRating',
-  //    purpose: #STANDARD,
-  //    parentId: '',
-  //    position: 20
-  //  }],
-  identification: [{ position: 20 }]
+  identification: [{
+    position: 20,
+    label: 'Surname'
+  }]
   }
   @Search.defaultSearchElement: true
   surname;
@@ -60,14 +61,10 @@ annotate view ZLC_I_ProdRating_999 with
     type: #STANDARD,
     label: 'E-Mail'
   }],
-
-  //  facet: [{
-  //  //              qualifier: ,
-  //    label: 'E-Mail',
-  //    purpose: #STANDARD,
-  //    position: 30
-  //  }],
-  identification: [{ position: 30 }]
+  identification: [{
+    position: 30,
+    label: 'E-Mail'
+  }]
   }
   email;
 
@@ -77,15 +74,14 @@ annotate view ZLC_I_ProdRating_999 with
       type: #STANDARD,
       label: 'Product'
     }],
-
-  //    facet: [{
-  //      //              qualifier: ,
-  //      label: 'Product',
-  //      purpose: #STANDARD,
-  //      position: 40
-  //    }],
-    identification: [{ position: 40 }]
+    identification: [{
+      position: 40,
+      label: 'Product'
+   }]
   }
+  @Consumption.valueHelpDefinition: [{
+    entity: { name: 'ZZ_CE_PRODUCT',
+              element: 'Product' } }]
   product;
 
   @UI:{
@@ -94,15 +90,10 @@ annotate view ZLC_I_ProdRating_999 with
         type: #STANDARD,
         label: 'Rating'
       }],
-
-  //      facet: [{
-  //        //              qualifier: ,
-  //        label: 'Rating',
-  //        purpose: #STANDARD,
-  //        position: 50
-  //      }],
-      identification: [{ position: 50 }]
+      identification: [{
+        position: 50,
+        label: 'Rating'
+      }]
   }
   rating;
-
 }

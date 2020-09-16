@@ -5,7 +5,11 @@ persistent table zlc_prodrate_999
 lock master
 
 {
+
+  field ( numbering : managed ) rating_uuid;
   create;
   update;
   delete;
+
+  validation check_email on save { field email; }
 }
