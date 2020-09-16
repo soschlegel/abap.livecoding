@@ -134,8 +134,12 @@ lock master
   create;
   update;
   delete;
+
+  field ( numbering : managed ) rating_uuid;
 }
 ```
+
+`field ( numbering : managed ) rating_uuid;` is needed, that the GUIDs are created automatically and the developer doesn't need to care about :-) .
 
 ### Create Behavior Implementation
 
