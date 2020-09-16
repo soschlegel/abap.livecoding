@@ -39,20 +39,23 @@ Based on these CDS Views, SAP redesigns the existing Business Objects to make th
 
 The foundation for a Business Object is now a CDS View (or a [CDS View Entity which is the successor for CDS Views with ABAP Platform 2020](https://blogs.sap.com/2020/09/02/a-new-generation-of-cds-views-cds-view-entities/)).
 These Views are connected to a Behavior Definition, which defines the possible actions and a Behavior Implementation, which implements the logic. Out of this, we define a Service Definition, which lists the exposed entities and at least, we enter our protocol we want to use, i.e. OData V2 or OData V4.
+
 ![Elements of a RAP BO](images/RAP_overview.png)
 
 ## Getting the Products
 
 This example should be a demo on how to bring cloud and on-Prem together, so for this, we need another system to connect to. The easiest way are the demo system provided by SAP via the [SAP API Business Hub](https://api.sap.com/).
 Select here the SAP S/4HANA Cloud - perhaps an account registration before may be required for you.
+
 ![SAP API Business Hub for S/4HANA Cloud](images/API_Business_Hub.png)
 
 On the next page we search for *product* and take a closer look, at the probably best fitting service according to description:
+
 ![Find the product-service](images/API_Business_Hub_Product_01.png)
 
 Here we find everything we need to get our product information. We can also test the API Calls directly and also create Code Snippets for consuming this Service in multiple, different programming languages.
-![Product Service Overview](images/API_Business_Hub_Product_02.png)
 
+![Product Service Overview](images/API_Business_Hub_Product_02.png)
 
 ## Create Table
 
@@ -80,9 +83,13 @@ define table zlc_prodrate_999 {
 ### Create CDS Root View
 
 After creating the table, just right click it and select **New Data Definition** to create a CDS Root View, based on our Database.
+
 ![use CDS Wizard for DB Table](images/cds_rating_00.png)
+
 The next steps are "as always":
+
 ![Define View Name](images/cds_rating_01.png)
+
 ![Select Template](images/cds_rating_02.png)
 
 The result should look like this:
@@ -107,6 +114,7 @@ define root view entity ZLC_I_ProdRating_999
 ### Create Behavior Definition
 
 Now, we need to make our BO "intelligent". First Step for this, is creating a Behavior Definition - again with some wizard support via right click on the DDLS and select **New Behavior Definition**. For sure we'll use **Implementation Type: Managed** because we don't want loose time with implementing all the coding by ourself.
+
 ![BD Wizard](images/BD_00.png)
 
 We define a very simple one and with our next step, we'll implement the Behavior Implementation, which is currently commented out.
@@ -128,6 +136,7 @@ lock master
 ### Create Behavior Implementation
 
 And again, we use the wizard to create out Behavior Implementation and use the before suggested name.
+
 ![Create Behavior Implementation](images/BI_00.png)
 
 Simple activating the Behavior Implementation is at the moment everything, that needs to be done.
@@ -142,6 +151,7 @@ managed implementation in class zbp_lc_i_prodrating_999 unique;
 
 First time after a while, we don't have an ultra easy wizard :-( - but it's ok.
 Simple create a Service Definition by finding the right button in the context-menu.
+
 ![Create Service Definition](images/SD_00.png)
 
 The work, is very easy: with the command `expose`, we describe what entities should be exposed to our service - well, Rocket-Science!
