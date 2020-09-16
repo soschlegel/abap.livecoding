@@ -27,8 +27,8 @@ In a short time, we want to build a simple application, where a customer can ran
 
 ## What's RAP
 
-The ABAP RESTful Programming Model is the newest way and technology provided by SAP to create modern, RESTful applications with web based UIs - especially focused for sure on SAP UI5.
-Google delivers a lot of information on this technology, by simply searching for "SAP RAP" and of course useful sources to get in touch with it, are as follows:
+The ABAP RESTful Programming Model is the newest way and technology provided by SAP to create modern, RESTful applications with web based UIs - especially focused naturally on SAP UI5.
+Google delivers a lot of information on this technology by simply searching for "SAP RAP". Of course useful sources to get in touch with it, are as follows:
 
 - [Official documentation](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/289477a81eec4d4e84c0302fb6835035.html?q=abap%20restful%20programming)
 - [Blog Post by Sony Sukumar Kattoor as overview](https://blogs.sap.com/2019/05/23/sap-cloud-platform-abap-restful-programming-model-rap-for-beginners/)
@@ -36,9 +36,9 @@ Google delivers a lot of information on this technology, by simply searching for
 - [...and also Florian Wahl](https://people.sap.com/florian.wahl)
 
 In very short terms explained:
-In former Days, SAP logic was encapsulated by Business Objects, build out of Function Modules and Function Groups. But without any consistency in naming and functionality, so a lot of experience was needed, to find the right FM for the right task - if such one even existed!
-Since S/4HANA, we have new **first class citizens** - and these are CDS Views! With Core Data Service Views, SAP invented a wrapper for a lot of Application Server Side logic hidden in Function Module with ABAP on how all the Data of a Business Object belong together - not very much "Code-Pushdown" as SAP preaches it since the first days of SAP HANA. All this changed with CDS, but these are Database **VIEWS** and as in every other database like Oracle or MS SQL, Views are read-only.
-Based on these CDS Views, SAP redesigns the existing Business Objects to make them also easily consumeable via OData and with this, also for SAP UI5.
+In former days, SAP logic was encapsulated by Business Objects, build out of Function Modules and Function Groups. But without any consistency in naming and functionality, a lot of experience was needed to find the right FM for the right task - if one such even existed!
+Since S/4HANA, we have new **first class citizens** - and these are CDS Views! With Core Data Service Views, SAP invented a wrapper for a lot of Application Server Side logic. In former days hidden in Function Modules, programmed in ABAP and containing the knowledge how the data of a Business Object belong together - not very much "Code-Pushdown" as SAP preaches it since the first days of SAP HANA. All this changed with CDS, but these are Database **VIEWS** and as in every other database like Oracle or MS SQL, Views are read-only.
+Based on these CDS Views, SAP redesigns the existing Business Objects to make them also easily consumable via OData and by doing this, also for SAP UI5.
 ![Levels of RAP](images/RAP_overview_0.png)
 
 The foundation for a Business Object is now a CDS View (or a [CDS View Entity which is the successor for CDS Views with ABAP Platform 2020](https://blogs.sap.com/2020/09/02/a-new-generation-of-cds-views-cds-view-entities/)).
@@ -48,8 +48,8 @@ These Views are connected to a Behavior Definition, which defines the possible a
 
 ## Getting the Products
 
-This example should be a demo on how to bring cloud and on-Prem together, so for this, we need another system to connect to. The easiest way are the demo system provided by SAP via the [SAP API Business Hub](https://api.sap.com/).
-Select here the SAP S/4HANA Cloud - perhaps an account registration before may be required for you.
+This example should be a demo on how to bring cloud and on-Prem together, so for this, we need another system to connect to. The easiest way is the demo system provided by SAP via the [SAP API Business Hub](https://api.sap.com/).
+Select on that page the SAP S/4HANA Cloud - perhaps an account registration before may be required for you.
 
 ![SAP API Business Hub for S/4HANA Cloud](images/API_Business_Hub.png)
 
@@ -57,13 +57,13 @@ On the next page we search for *product* and take a closer look, at the probably
 
 ![Find the product-service](images/API_Business_Hub_Product_01.png)
 
-Here we find everything we need to get our product information. We can also test the API Calls directly and also create Code Snippets for consuming this Service in multiple, different programming languages.
+Here we find everything we need to get our product information. We can test the API Calls directly and also create Code Snippets for consuming this service in multiple, different programming languages.
 
 ![Product Service Overview](images/API_Business_Hub_Product_02.png)
 
 ## Create Table
 
-At first step, we have to think about what we need, for a simple product rating and create a database table based on these identified requirements.
+At first step, we have to think about what we need for a simple product rating and create a database table based on these identified requirements.
 
 ```abap
 @EndUserText.label : 'Product-Rating'
@@ -117,7 +117,7 @@ define root view entity ZLC_I_ProdRating_999
 
 ### Create Behavior Definition
 
-Now, we need to make our BO "intelligent". First Step for this, is creating a Behavior Definition - again with some wizard support via right click on the DDLS and select **New Behavior Definition**. For sure we'll use **Implementation Type: Managed** because we don't want loose time with implementing all the coding by ourself.
+Now, we need to make our BO "intelligent". To do this, we create a Behavior Definition - again with some wizard support via right click on the DDLS and selecting **New Behavior Definition**. For sure we'll use **Implementation Type: Managed** because we don't want to loose time with implementing all the coding by ourself.
 
 ![BD Wizard](images/BD_00.png)
 
@@ -139,7 +139,7 @@ lock master
 }
 ```
 
-`field ( numbering : managed ) rating_uuid;` is needed, that the GUIDs are created automatically and the developer doesn't need to care about :-) .
+`field ( numbering : managed ) rating_uuid;` is needed, so that the GUIDs are created automatically and the developer doesn't need to care about :-) .
 
 ### Create Behavior Implementation
 
@@ -147,7 +147,7 @@ And again, we use the wizard to create out Behavior Implementation and use the b
 
 ![Create Behavior Implementation](images/BI_00.png)
 
-Simple activating the Behavior Implementation is at the moment everything, that needs to be done.
+Simple activating the Behavior Implementation is at the moment everything that needs to be done.
 
 After the creation of the implementation, we need to comment in the class name in the Behavior Definition.
 
@@ -162,7 +162,7 @@ Simple create a Service Definition by finding the right button in the context-me
 
 ![Create Service Definition](images/SD_00.png)
 
-The work, is very easy: with the command `expose`, we describe what entities should be exposed to our service - well, Rocket-Science!
+The work is very easy: with the command `expose`, we describe what entities should be exposed to our service - well, Rocket-Science!
 
 ```abap
 @EndUserText.label: 'Service Definition for Product Rating'
@@ -176,11 +176,11 @@ define service ZLC_I_ProductRating_999 {
 The complete logic is contained in the CDS View Entity and the corresponding Behavior Definition and Implementation.
 The Service Definition exposes all relevant and needed entities.
 The last open point to define, is how the data can be consumed - in detail: Which protocol?
-This is done via the Service Binding, and therefore one has to be created.
+This is done via the Service Binding, and therefore, one has to be created.
 
 ![Create Service Binding](images/SB_00.png)
 
-A Service Binding brings a Service Definition and a protocol together and creates and Endpoint out of these information, for a later consumption by third party tools.
+A Service Binding brings a Service Definition and a protocol together and creates an Endpoint out of these information, for a later consumption by third party tools.
 
 ![Service Binding Definition](images/SB_01.png)
 
@@ -194,7 +194,7 @@ Clicking the **Preview...**-Button opens a browser windows and shows a first pre
 
 In this scenario, we use the capabilities of Fiori-Elements, but this is based on annotations and for this, we need to add them to our CDS Entity.
 
-In general, we have three posibilities:
+In general, we have three possibilities:
 
 - Define them via UI-Tools like WebIDE in a separate Annotations.xml
 - Write them inline, directly into the used CDS View
@@ -317,13 +317,13 @@ annotate view ZLC_I_ProdRating_999 with
 
 ### Get the Metadata
 
-For consumption of the products, we have to go back, to [SAP API Business Hub](https://api.sap.com/) and our selected product-service. Click on [**Details**](https://api.sap.com/api/API_PRODUCT_SRV/overview) and then **Download API Specification** and select **EDMX** for Downloading the Service Metadata.
+For consumption of the products, we have to go back to [SAP API Business Hub](https://api.sap.com/) and our selected product-service. Click on [**Details**](https://api.sap.com/api/API_PRODUCT_SRV/overview) and then **Download API Specification** and select **EDMX** for Downloading the Service Metadata.
 
 ![Metadata Download](images/download_edmx.png)
 
 ### Create OData Consumption Model
 
-As next step, we have to tell our development, what to consume, by creating a Service Consumption Model.
+As the next step, we have to tell our development what to consume, by creating a Service Consumption Model.
 
 ![Create Consumption Model](images/cds_custom_01.png)
 
@@ -349,7 +349,7 @@ As a result, the wizard creates three objects.
 
 ## Create a Custom Entity
 
-First, we have to create a so called CDS Custom Entity. This is this coolest way, to combine CDS and classical ABAP.
+First, we have to create a so called CDS Custom Entity. This is the coolest way, to combine CDS and classical ABAP.
 In the step before, the wizard created an abstract entity for us, where we find the complete definition of the product entity. We only need a subset of the fields.
 
 ```abap
@@ -392,12 +392,12 @@ define custom entity ZZ_CE_Product
 }
 ```
 
-This class has to be created afterwards, to make it running. And this class needs to implement the interface `if_rap_query_provider`.
-Ok - here we have to implement some coding, which can be found in the GitHub-Repository in the class `ZCL_CE_LC_PRODUCTS_999`.
+This class has to be created afterwards, to get it to run. And this class needs to implement the interface `if_rap_query_provider`.
+Ok - here we have to implement some coding, which can be found in the GitHub-Repository in the class [`ZCL_CE_LC_PRODUCTS_999`](src/zcl_ce_lc_products_999.clas.abap).
 
 ## Extend the CDS View
 
-Now we have to bring our both entities together. This can be done via a simple adaption of out Product-Rating-View.
+Now we have to bring both our entities together. This can be done via a simple adaption of our Product-Rating-View.
 
 ```abap
 @AccessControl.authorizationCheck: #CHECK
@@ -417,7 +417,7 @@ define root view entity ZLC_I_ProdRating_999
 }
 ```
 
-And also our metadata has to be adapted, by defining the search help for product. Just add the following lines, right about your "product".
+And also our metadata has to be adapted, by defining the search help for product. Just add the following lines, right above the "product".
 
 ```abap
   @Consumption.valueHelpDefinition: [{
