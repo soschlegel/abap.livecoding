@@ -1,0 +1,108 @@
+@Metadata.layer: #CUSTOMER
+
+//@UI: {
+//  headerInfo: { typeName: 'Product Rating', typeNamePlural: 'Product Rating', title: { type: #STANDARD, value: 'email' } } }
+
+@Search.searchable: true
+annotate view ZLC_I_ProdRating_999 with
+{
+  //ZLC_I_ProdRating_999
+  @UI.hidden: false
+  rating_uuid;
+
+  @UI:{
+    lineItem: [{
+      position: 10,
+      importance: #HIGH,
+      type: #STANDARD,
+      label: 'Käse'
+    }],
+
+  //    facet: [{
+  //  //              qualifier: ,
+  //      label: 'Forename',
+  //      id: 'ProductRating',
+  //      purpose: #STANDARD,
+  //      position: 10
+  //    }],
+    identification: [{
+        position: 10,
+        label: 'Forename'
+    }]
+  }
+  @Search.defaultSearchElement: true
+  forename;
+
+  @UI:{
+  lineItem: [{
+    position: 20,
+    importance: #HIGH,
+    type: #STANDARD,
+    label: 'Surname'
+  }],
+
+  //  facet: [{
+  //  //              qualifier: ,
+  //    label: 'Surname',
+  //    id: 'ProductRating',
+  //    purpose: #STANDARD,
+  //    parentId: '',
+  //    position: 20
+  //  }],
+  identification: [{ position: 20 }]
+  }
+  @Search.defaultSearchElement: true
+  surname;
+
+  @UI:{
+  lineItem: [{
+    position: 30,
+    type: #STANDARD,
+    label: 'E-Mail'
+  }],
+
+  //  facet: [{
+  //  //              qualifier: ,
+  //    label: 'E-Mail',
+  //    purpose: #STANDARD,
+  //    position: 30
+  //  }],
+  identification: [{ position: 30 }]
+  }
+  email;
+
+  @UI:{
+    lineItem: [{
+      position: 40,
+      type: #STANDARD,
+      label: 'Product'
+    }],
+
+  //    facet: [{
+  //      //              qualifier: ,
+  //      label: 'Product',
+  //      purpose: #STANDARD,
+  //      position: 40
+  //    }],
+    identification: [{ position: 40 }]
+  }
+  product;
+
+  @UI:{
+      lineItem: [{
+        position: 50,
+        type: #STANDARD,
+        label: 'Rating'
+      }],
+
+  //      facet: [{
+  //        //              qualifier: ,
+  //        label: 'Rating',
+  //        purpose: #STANDARD,
+  //        position: 50
+  //      }],
+      identification: [{ position: 50 }]
+  }
+  rating;
+
+}
