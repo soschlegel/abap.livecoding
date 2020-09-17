@@ -4,6 +4,7 @@ The aim of this Session, is to show how fast you can develop solutions with RAP 
 
 - [Live-Coding Session](#live-coding-session)
   - [Our Scenario](#our-scenario)
+  - [Intention](#intention)
   - [What's RAP](#whats-rap)
   - [Getting the Products](#getting-the-products)
   - [Create Table](#create-table)
@@ -28,6 +29,15 @@ The aim of this Session, is to show how fast you can develop solutions with RAP 
 ## Our Scenario
 
 In a short time, we want to build a simple application, where a customer can rank a product. But to make it more exotic and show the strength of the cloud, our product list is not on the same system, but somewhere on an other system and has to be consumed via OData.
+
+![Scenario Overview](images/scenario%20(Klein).png)
+
+## Intention
+
+The SAP technology stack has evolved in recent years and many developers and companies have been unable to keep up with the latest capabilities. Especially the latest versions offer a lot of tools and capabilities to be better than ever before - but a system upgrade also requires an upgrade of the employees' skillset to unleash the full power.
+
+![the bad way](images/comic.png)
+By [Andreas Gautsch](https://twitter.com/andreas_gautsch/status/1306320809623986177?s=20)
 
 ## What's RAP
 
