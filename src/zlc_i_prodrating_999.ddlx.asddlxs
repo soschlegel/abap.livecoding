@@ -8,10 +8,17 @@ annotate view ZLC_I_ProdRating_999 with
 {
 
   @UI.facet: [ {
+      id: 'idHeader',
+      type: #DATAPOINT_REFERENCE,
+      position: 10,
+      purpose: #HEADER,
+      targetQualifier: 'rating'
+    },
+    { 
       id: 'idCollection',
       type: #COLLECTION,
       label: 'Product Rating',
-      position: 10
+      position: 10      
     },
     {
       id: 'idIdentification',
@@ -87,13 +94,19 @@ annotate view ZLC_I_ProdRating_999 with
   @UI:{
       lineItem: [{
         position: 50,
-        type: #STANDARD,
+        type: #AS_DATAPOINT,
         label: 'Rating'
       }],
       identification: [{
         position: 50,
-        label: 'Rating'
-      }]
+        type: #STANDARD,
+        label: 'Rating [0-5]'
+      }],
+      dataPoint: { 
+        title: 'Product Rating',
+        visualization: #RATING,
+        targetValue: 5
+      }
   }
   rating;
 }
