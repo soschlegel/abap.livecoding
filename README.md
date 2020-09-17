@@ -19,6 +19,10 @@ The aim of this Session, is to show how fast you can develop solutions with RAP 
     - [Create OData Consumption Model](#create-odata-consumption-model)
   - [Create a Custom Entity](#create-a-custom-entity)
   - [Extend the CDS View](#extend-the-cds-view)
+  - [Validate User-Input](#validate-user-input)
+    - [Define Validation](#define-validation)
+    - [Code to Check](#code-to-check)
+  - [Beautify the UI](#beautify-the-ui)
   - [Build your first BO with RAP-Generator (optional)](#build-your-first-bo-with-rap-generator-optional)
 
 ## Our Scenario
@@ -425,6 +429,141 @@ And also our metadata has to be adapted, by defining the search help for product
               element: 'Product' } }]
   product;
 ```
+
+## Validate User-Input
+
+For the moment, we simple write the values to the database, but in most use-cases, we have to expect wrong user inputs. As an example, we want to check for correct email-addresses.
+To handle this, we have multiple small steps to.
+
+### Define Validation
+
+First step, is to define a validation in the Behavior Definition, by simple adding one line:
+
+```abap
+validation check_email on save { field email; }
+```
+
+By selecting the validation name and pressing `CTRL+F1` we see the power of Eclipse and the Quickfixes!
+
+![Add Validation by Quickfix](images/validation_00.png)
+
+This creates a local handler class including method definitions in the Behavior Implementation.
+
+### Code to Check
+
+Supported by the Quickfix, our Behavior Implementation looks now as follows, if you click on the tab "Local Types".
+
+```abap
+CLASS lhc_prod_rating DEFINITION INHERITING FROM cl_abap_behavior_handler.
+
+  PRIVATE SECTION.
+
+    METHODS check_email FOR VALIDATE ON SAVE
+      IMPORTING keys FOR prod_rating~check_email.
+
+ENDCLASS.
+
+CLASS lhc_prod_rating IMPLEMENTATION.
+
+  METHOD check_email.
+
+  ENDMETHOD.
+
+ENDCLASS.
+```
+
+Nice feature, but sadly at the moment without any intelligence. We have to code something and this is the first time, we get in touch with [EML - the Entity-Manipulation-Language](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/af7782de6b9140e29a24eae607bf4138.html) (don't mix it up with "Enterprise Machine Learning"). This is our new Weapon, to access RAP created Business Objects :-) .
+
+So what do we have to do? Let's take a look at the coding and explain it afterwards.
+
+```abap
+METHOD check_email.
+
+    READ ENTITIES OF ZLC_I_ProdRating_999 IN LOCAL MODE
+      ENTITY prod_rating
+        FIELDS ( email )
+        WITH CORRESPONDING #( keys )
+      RESULT DATA(lt_ratings).
+
+    LOOP AT lt_ratings INTO DATA(ls_rating).
+
+      DATA(lo_regex) = NEW cl_abap_regex(
+        pattern       = '^[\w\.=-]+@[\w\.-]+\.[\w]{2,3}$'
+        ignore_case   = abap_true ).
+
+
+      DATA(lo_matcher) = lo_regex->create_matcher( text = ls_rating-email ).
+
+      IF lo_matcher->match( ) IS INITIAL.
+
+        APPEND VALUE #( %key = ls_rating-%key ) TO failed-prod_rating.
+
+        APPEND VALUE #( %key = ls_rating-%key
+                        %msg = new_message( id      = 'YSSC_LIVECODING'
+                                            number  = '001'
+                                            v1      = ls_rating-email
+                                            severity = if_abap_behv_message=>severity-error )
+                       %element-email = if_abap_behv=>mk-on ) TO reported-prod_rating.
+
+      ENDIF.
+
+    ENDLOOP.
+
+  ENDMETHOD.
+```
+
+At the beginning, we see how to query a Business Object, via `READ ENTITIES OF` to read all the actual changed Entries.
+
+Then we check each entry via a REGEX (very powerful, but very hard to understand if you use once a year).
+
+If the mail-address doesn't match the regex, then we simple add the key of the entry to the error list and generate also an errormessage for the user in the frontend.
+
+## Beautify the UI
+
+We have a nice Fiori UI but it can still beautified. This is a job for annotations.
+
+Let's make our rating look Amazon-like, be using stars instead of simple numbers.
+
+![UI with Stars](images/stars_00.png)
+
+This can be achieved with just some few lines of "Code" (no real code - just annotations!).
+
+In our MDE, we add some lines, to show the stars in the detailpage.
+
+```abap
+  @UI.facet: [ {
+      id: 'idHeader',
+      type: #DATAPOINT_REFERENCE,
+      position: 10,
+      purpose: #HEADER,
+      targetQualifier: 'rating'
+    },
+```
+
+...and also some annotations directly for the element:
+
+```abap
+  @UI:{
+      lineItem: [{
+        position: 50,
+        type: #AS_DATAPOINT,
+        label: 'Rating'
+      }],
+      identification: [{
+        position: 50,
+        type: #STANDARD,
+        label: 'Rating [0-5]'
+      }],
+      dataPoint: { 
+        title: 'Product Rating',
+        visualization: #RATING,
+        targetValue: 5
+      }
+  }
+  rating;
+```
+
+The most important: We define `rating` as a `dataPoint` with information like targetValue and visualization Type.
 
 ## Build your first BO with RAP-Generator (optional)
 
