@@ -37,7 +37,7 @@ annotate view ZLC_I_ProdRating_999 with
       position: 10,
       importance: #HIGH,
       type: #STANDARD,
-      label: 'Käse'
+      label: 'Pflaumenkuchen'
     }],
     identification: [{
         position: 10,
@@ -105,7 +105,7 @@ annotate view ZLC_I_ProdRating_999 with
       dataPoint: { 
         title: 'Product Rating',
         visualization: #RATING,
-        targetValue: 5
+        targetValue: 10
       }
   }
   rating;

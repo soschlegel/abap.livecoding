@@ -1,12 +1,21 @@
 managed implementation in class zbp_lc_i_prodrating_999 unique;
+with draft;
 
 define behavior for ZLC_I_ProdRating_999 alias prod_rating
 persistent table zlc_prodrate_999
+
+draft table zlc_prodra_d_999
 lock master
+total etag last_changed_at
 
 {
 
   field ( numbering : managed ) rating_uuid;
+  //  field ( features : instance);
+  //  field ( readonly : update ) product;
+  //  field ( mandatory ) forename, surname;
+  field ( mandatory : create, readonly : update ) product;
+
   create;
   update;
   delete;

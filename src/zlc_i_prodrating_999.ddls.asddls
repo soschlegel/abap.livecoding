@@ -11,5 +11,8 @@ define root view entity ZLC_I_ProdRating_999
       email,
       product,
       rating,
+      //total ETag field
+      @Semantics.systemDateTime.lastChangedAt: true
+      last_changed_at,
       _Product
 }
