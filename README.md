@@ -30,7 +30,7 @@ The aim of this Session, is to show how fast you can develop solutions with RAP 
 
 In a short time, we want to build a simple application, where a customer can rank a product. But to make it more exotic and show the strength of the cloud, our product list is not on the same system, but somewhere on an other system and has to be consumed via OData.
 
-![Scenario Overview](images/scenario%20(Small).png.png)
+![Scenario Overview](images/scenario%20(Small).png)
 
 ## Intention
 
