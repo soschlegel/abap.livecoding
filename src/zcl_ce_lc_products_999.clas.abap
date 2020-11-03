@@ -59,7 +59,7 @@ CLASS zcl_ce_lc_products_999 IMPLEMENTATION.
         lo_http_request->set_header_fields(
             VALUE #(
                 (  name = 'Accept' value = 'application/json' )
-                (  name = 'APIKey' value = 'k7mbUeEXNGv0Sn5WdAPYAFJ8KIwa3bvr' )
+                (  name = 'APIKey' value = 'XXX' )
         ) ).
 
 

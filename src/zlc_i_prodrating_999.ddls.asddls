@@ -11,5 +11,6 @@ define root view entity ZLC_I_ProdRating_999
       email,
       product,
       rating,
+      lastchangedat as LastChangedAt,
       _Product
 }

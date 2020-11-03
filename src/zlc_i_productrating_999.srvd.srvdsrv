@@ -1,4 +1,5 @@
 @EndUserText.label: 'Service Definition for Product Rating'
 define service ZLC_I_ProductRating_999 {
   expose ZLC_I_ProdRating_999;
+  expose ZZ_CE_Product;
 }

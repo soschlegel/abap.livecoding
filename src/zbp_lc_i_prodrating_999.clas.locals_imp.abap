@@ -5,6 +5,9 @@ CLASS lhc_prod_rating DEFINITION INHERITING FROM cl_abap_behavior_handler.
     METHODS check_email FOR VALIDATE ON SAVE
       IMPORTING keys FOR prod_rating~check_email.
 
+    METHODS get_features FOR FEATURES
+      IMPORTING keys REQUEST requested_features FOR prod_rating RESULT result.
+
 ENDCLASS.
 
 CLASS lhc_prod_rating IMPLEMENTATION.
@@ -40,6 +43,10 @@ CLASS lhc_prod_rating IMPLEMENTATION.
       ENDIF.
 
     ENDLOOP.
+
+  ENDMETHOD.
+
+  METHOD get_features.
 
   ENDMETHOD.
 

@@ -1,15 +1,28 @@
 managed implementation in class zbp_lc_i_prodrating_999 unique;
+with draft;
 
 define behavior for ZLC_I_ProdRating_999 alias prod_rating
 persistent table zlc_prodrate_999
-lock master
+lock master total etag LastChangedAt
+draft table zlc_prodd99
 
 {
 
-  field ( numbering : managed ) rating_uuid;
+  field ( numbering : managed, readonly ) rating_uuid;
+  field ( readonly ) LastChangedAt;
+  field ( mandatory ) email;
+  field ( mandatory : create ) product;
   create;
   update;
   delete;
 
   validation check_email on save { field email; }
+
+  mapping for zlc_prodrate_999
+  {
+    LastChangedAt = lastchangedat;
+  }
+
+
+
 }
